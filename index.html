@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SECE43 - بنك أسئلة أمن الحوسبة السحابية الافتراضية</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --primary-rgb: 56, 189, 248;
+      --success: #22c55e;
+      --success-bg: rgba(34, 197, 94, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --option-bg: #334155;
+      --option-hover: #475569;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      --radius: 16px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-rgb: 2, 132, 199;
+      --success: #16a34a;
+      --success-bg: rgba(22, 163, 74, 0.12);
+      --danger: #dc2626;
+      --danger-bg: rgba(220, 38, 38, 0.12);
+      --option-bg: #f8fafc;
+      --option-hover: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* Course Navigation Switcher */
+    .course-switcher {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: var(--card-bg);
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+
+    .course-link {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .course-link.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .course-link:hover:not(.active) {
+      background: var(--option-hover);
+      color: var(--text);
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .brand h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .brand p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: var(--option-bg);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--option-hover);
+    }
+
+    /* Views */
+    .view {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Settings Card */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .settings-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .settings-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .setting-group {
+      margin-bottom: 22px;
+    }
+
+    .setting-label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      display: block;
+      color: var(--text);
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .radio-card {
+      position: relative;
+    }
+
+    .radio-card input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .radio-content {
+      padding: 14px 12px;
+      background: var(--option-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .radio-content .icon {
+      font-size: 1.4rem;
+    }
+
+    .radio-content .title {
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .radio-content .desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .radio-card input:checked + .radio-content {
+      border-color: var(--primary);
+      background: rgba(var(--primary-rgb), 0.15);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .start-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+    }
+
+    .start-btn:active {
+      transform: translateY(0);
+    }
+
+    /* Quiz Bar */
+    .quiz-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stats-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: var(--option-bg);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+    }
+
+    .stats-badge.score-badge {
+      color: var(--success);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .stats-badge.wrong-badge {
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--option-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), #06b6d4);
+      transition: width 0.3s ease;
+    }
+
+    /* Question Card */
+    .question-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: border-color 0.2s;
+    }
+
+    .question-card.answered-correct {
+      border-color: var(--success);
+    }
+
+    .question-card.answered-wrong {
+      border-color: var(--danger);
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .q-num {
+      background: rgba(var(--primary-rgb), 0.15);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .q-lecture {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--option-bg);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .q-text {
+      font-size: 1.08rem;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      color: var(--text);
+      direction: ltr;
+      text-align: left;
+    }
+
+    /* Answers */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      background: var(--option-bg);
+      border: 1.5px solid var(--card-border);
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: 12px;
+      text-align: left;
+      direction: ltr;
+      font-size: 0.96rem;
+      line-height: 1.45;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .option-btn:hover:not(.disabled) {
+      background: var(--option-hover);
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .option-btn.disabled {
+      cursor: default;
+    }
+
+    .opt-letter {
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(var(--primary-rgb), 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .opt-text {
+      flex: 1;
+    }
+
+    /* Answer States */
+    .option-btn.correct-choice {
+      background: var(--success-bg) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+      font-weight: 600;
+    }
+
+    .option-btn.correct-choice .opt-letter {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .option-btn.wrong-choice {
+      background: var(--danger-bg) !important;
+      border-color: var(--danger) !important;
+      color: var(--danger) !important;
+      text-decoration: line-through;
+    }
+
+    .option-btn.wrong-choice .opt-letter {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    /* Feedback Box */
+    .feedback-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.2s;
+    }
+
+    .feedback-box.correct {
+      display: flex;
+      background: var(--success-bg);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .feedback-box.wrong {
+      display: flex;
+      background: var(--danger-bg);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    /* Nav buttons */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary {
+      background: var(--option-bg);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--option-hover);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Results Screen */
+    .result-summary {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, var(--card-bg) 60%, transparent 61%), conic-gradient(var(--primary) 0%, var(--option-bg) 0%);
+      border: 4px solid var(--card-border);
+      position: relative;
+    }
+
+    .score-num {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .score-pct {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .result-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0 25px;
+    }
+
+    .stat-card {
+      background: var(--option-bg);
+      border: 1px solid var(--card-border);
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat-card .val {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .stat-card .lbl {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .wrong-filter-tab {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--option-bg);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .review-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .review-item.is-wrong {
+      border-right: 5px solid var(--danger);
+    }
+
+    .review-item.is-correct {
+      border-right: 5px solid var(--success);
+    }
+
+    .review-q {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .review-ans {
+      font-size: 0.9rem;
+      direction: ltr;
+      text-align: left;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+
+    .review-ans.user-choice-wrong {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .review-ans.correct-choice-box {
+      background: var(--success-bg);
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    /* Floating Jump Button for All Mode */
+    .finish-all-sticky {
+      position: sticky;
+      bottom: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      margin-top: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      .brand h1 {
+        font-size: 1rem;
+      }
+      .q-text {
+        font-size: 1rem;
+      }
+      .option-btn {
+        font-size: 0.9rem;
+        padding: 12px;
+      }
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .btn {
+        padding: 10px 14px;
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Course Switcher -->
+    <div class="course-switcher">
+      <a href="index.html" class="course-link">🛡️ SEC411 (Cyber Security)</a>
+      <a href="sece43.html" class="course-link active">☁️ SECE43 (Virtualization & Cloud)</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">☁️</div>
+        <div>
+          <h1>SECE43 - Cloud & Virtualization Security</h1>
+          <p>بنك أسئلة المحاضرات 1 إلى 4 (80 سؤال)</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-btn" title="تبديل الوضع">🌙 مريح</button>
+      </div>
+    </header>
+
+    <!-- VIEW 1: SETTINGS / HOME -->
+    <section id="settingsView" class="view active">
+      <div class="card">
+        <h2 class="settings-title">اختبار أمن الحوسبة السحابية والنظم الافتراضية</h2>
+        <p class="settings-subtitle">اختر طريقة المذاكرة والحل المناسبة لك</p>
+
+        <!-- Display Mode -->
+        <div class="setting-group">
+          <label class="setting-label">1. أسلوب العرض:</label>
+          <div class="option-grid">
+            <label class="radio-card">
+              <input type="radio" name="displayMode" value="one" checked>
+              <div class="radio-content">
+                <span class="icon">📄</span>
+                <span class="title">سؤال بسؤال</span>
+                <span class="desc">تركيز على كل سؤال مع تقليب سلس</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="displayMode" value="all">
+              <div class="radio-content">
+                <span class="icon">📑</span>
+                <span class="title">الأسئلة كلها معاً</span>
+                <span class="desc">تمرير وحل جميع الأسئلة بصفحة واحدة</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Order Mode -->
+        <div class="setting-group">
+          <label class="setting-label">2. ترتيب الأسئلة:</label>
+          <div class="option-grid">
+            <label class="radio-card">
+              <input type="radio" name="orderMode" value="sequential" checked>
+              <div class="radio-content">
+                <span class="icon">🔢</span>
+                <span class="title">بالترتيب الأصلي</span>
+                <span class="desc">من السؤال 1 حتى 80 حسب الملف</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="orderMode" value="random">
+              <div class="radio-content">
+                <span class="icon">🔀</span>
+                <span class="title">ترتيب عشوائي</span>
+                <span class="desc">خلط الأسئلة لاختبار الحفظ والاستيعاب</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Lecture Selection -->
+        <div class="setting-group">
+          <label class="setting-label">3. نطاق المحاضرات:</label>
+          <div class="option-grid">
+            <label class="radio-card">
+              <input type="radio" name="lectureScope" value="all" checked>
+              <div class="radio-content">
+                <span class="icon">📚</span>
+                <span class="title">الكل (80 سؤال)</span>
+                <span class="desc">المحاضرات 1 إلى 4</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lectureScope" value="lec1">
+              <div class="radio-content">
+                <span class="icon">1️⃣</span>
+                <span class="title">محاضرة 1 (1-20)</span>
+                <span class="desc">Cloud Computing</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lectureScope" value="lec2">
+              <div class="radio-content">
+                <span class="icon">2️⃣</span>
+                <span class="title">محاضرة 2 (21-40)</span>
+                <span class="desc">Cloud Security</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lectureScope" value="lec3">
+              <div class="radio-content">
+                <span class="icon">3️⃣</span>
+                <span class="title">محاضرة 3 (41-60)</span>
+                <span class="desc">Cloud Services</span>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lectureScope" value="lec4">
+              <div class="radio-content">
+                <span class="icon">4️⃣</span>
+                <span class="title">محاضرة 4 (61-80)</span>
+                <span class="desc">Shared Responsibility</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <button id="startQuizBtn" class="start-btn">ابدأ الاختبار الآن 🚀</button>
+      </div>
+    </section>
+
+    <!-- VIEW 2: QUIZ -->
+    <section id="quizView" class="view">
+      <!-- Sticky Stats Bar -->
+      <div class="quiz-bar">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="stats-badge" id="counterBadge">سؤال 1 من 80</span>
+          <span class="stats-badge score-badge" id="scoreBadge">✅ صح: 0</span>
+          <span class="stats-badge wrong-badge" id="wrongBadge">❌ خطأ: 0</span>
+        </div>
+        <div>
+          <button id="quitQuizBtn" class="icon-btn" style="font-size: 0.8rem;">خروج للإعدادات ↩️</button>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Container for Questions -->
+      <div id="questionsContainer"></div>
+
+      <!-- Single Question Navigation Buttons -->
+      <div id="singleNavControls" class="nav-buttons">
+        <button id="prevBtn" class="btn btn-secondary">السابق ➡️</button>
+        <button id="nextBtn" class="btn btn-primary">التالي ⬅️</button>
+      </div>
+
+      <!-- All Questions Sticky Bottom Bar -->
+      <div id="allNavControls" class="finish-all-sticky" style="display: none;">
+        <span id="allProgressText" style="font-weight: 600; font-size: 0.95rem;">تمت إجابة 0 من 80</span>
+        <button id="finishAllBtn" class="btn btn-success">إنهاء ورؤية النتيجة 🏁</button>
+      </div>
+    </section>
+
+    <!-- VIEW 3: RESULTS -->
+    <section id="resultsView" class="view">
+      <div class="card result-summary">
+        <div class="score-circle" id="scoreCircle">
+          <span class="score-num" id="finalScoreVal">0/80</span>
+          <span class="score-pct" id="finalPercentVal">0%</span>
+        </div>
+
+        <div id="resultBadge" class="result-badge">تقييم النتيجة</div>
+        <p id="resultMsg" style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;"></p>
+
+        <div class="result-grid">
+          <div class="stat-card">
+            <div class="val" style="color: var(--primary);" id="statTotal">80</div>
+            <div class="lbl">إجمالي الأسئلة</div>
+          </div>
+          <div class="stat-card">
+            <div class="val" style="color: var(--success);" id="statCorrect">0</div>
+            <div class="lbl">الإجابات الصحيحة</div>
+          </div>
+          <div class="stat-card">
+            <div class="val" style="color: var(--danger);" id="statWrong">0</div>
+            <div class="lbl">الإجابات الخاطئة</div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="retryErrorsBtn" class="btn btn-primary">🎯 إعادة حل الأسئلة التي أخطأت فيها فقط</button>
+          <button id="restartAllBtn" class="btn btn-secondary">🔄 إعادة الاختبار بالكامل</button>
+          <button id="backToHomeBtn" class="btn btn-secondary">⚙️ تغيير الإعدادات</button>
+        </div>
+      </div>
+
+      <!-- Review Section -->
+      <div class="card">
+        <h3 style="font-size: 1.15rem; margin-bottom: 14px; text-align: center;">مراجعة الأسئلة والإجابات الصحيحة</h3>
+        
+        <div class="wrong-filter-tab">
+          <button class="tab-btn active" id="filterWrongOnly">❌ الأسئلة الخاطئة فقط (<span id="wrongCountTab">0</span>)</button>
+          <button class="tab-btn" id="filterAll">📋 جميع الأسئلة</button>
+        </div>
+
+        <div id="reviewContainer"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // 80 Complete MCQs Data accurately extracted from SECE43 Question Bank
+    const RAW_QUESTIONS = [
+      // Lecture 1: Questions 1–20
+      {
+        id: 1,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "1. What is cloud computing?",
+        options: [
+          { key: "A", text: "Software installed on one personal computer" },
+          { key: "B", text: "A single technology that replaces all hardware" },
+          { key: "C", text: "An on-demand delivery of IT resources such as servers and storage as services over the Internet" },
+          { key: "D", text: "A private network with no Internet access" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 2,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "2. Which organization published Special Publication 800-145, the widely accepted standard that defines cloud computing?",
+        options: [
+          { key: "A", text: "The US National Institute of Standards and Technology (NIST)" },
+          { key: "B", text: "Amazon Web Services (AWS)" },
+          { key: "C", text: "Microsoft Azure" },
+          { key: "D", text: "Google" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 3,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "3. Which set matches the NIST cloud model?",
+        options: [
+          { key: "A", text: "Five characteristics, three deployment models, and four service models" },
+          { key: "B", text: "Three characteristics, five deployment models, and four service models" },
+          { key: "C", text: "Four characteristics, three deployment models, and five service models" },
+          { key: "D", text: "Five essential characteristics, four deployment models, and three service models" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 4,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "4. Which essential characteristic lets a user provision resources automatically without any human interaction with the provider?",
+        options: [
+          { key: "A", text: "Measured service" },
+          { key: "B", text: "Rapid elasticity" },
+          { key: "C", text: "On-demand self service" },
+          { key: "D", text: "Resource pooling" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 5,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "5. What does broad network access mean?",
+        options: [
+          { key: "A", text: "Only one type of client device is supported" },
+          { key: "B", text: "Resources can be accessed through different client platforms such as phones, tablets, and laptops" },
+          { key: "C", text: "Users must visit the provider's office to use resources" },
+          { key: "D", text: "Resources can only be reached from inside the data center" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 6,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "6. What does resource pooling allow a service provider to do?",
+        options: [
+          { key: "A", text: "Charge every consumer the same fixed amount" },
+          { key: "B", text: "Hide the resources from the provider itself" },
+          { key: "C", text: "Dedicate a separate physical server to every consumer" },
+          { key: "D", text: "Serve multiple consumers from pools of resources such as servers and storage (multitenancy)" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 7,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "7. Which example illustrates rapid elasticity?",
+        options: [
+          { key: "A", text: "Paying a fixed fee regardless of use" },
+          { key: "B", text: "Adding virtual machines when demand grows and terminating them when demand drops" },
+          { key: "C", text: "Keeping the same number of machines at all times" },
+          { key: "D", text: "Buying new servers once every year" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 8,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "8. How is billing handled under the measured service characteristic?",
+        options: [
+          { key: "A", text: "It is based on actual consumption, using a “pay as you go” model like electricity" },
+          { key: "B", text: "The provider bills without monitoring usage" },
+          { key: "C", text: "Customers pay in advance for hardware" },
+          { key: "D", text: "Customers pay one flat fee per year" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 9,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "9. What does a cloud deployment model define?",
+        options: [
+          { key: "A", text: "The type of service the provider offers" },
+          { key: "B", text: "The price of each cloud service" },
+          { key: "C", text: "The programming language used by developers" },
+          { key: "D", text: "Who the user of that cloud is and where the cloud infrastructure resides" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 10,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "10. Which statement describes a public cloud?",
+        options: [
+          { key: "A", text: "A mix of public and private clouds" },
+          { key: "B", text: "Infrastructure shared only by organizations with shared concerns" },
+          { key: "C", text: "Infrastructure provisioned for the general public that exists on the premises of the CSP" },
+          { key: "D", text: "Infrastructure used exclusively by one organization" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 11,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "11. Which is a characteristic of a private cloud?",
+        options: [
+          { key: "A", text: "It is the most cost-effective model" },
+          { key: "B", text: "It is owned and operated by the CSP for the general public" },
+          { key: "C", text: "It requires no in-house IT skills" },
+          { key: "D", text: "Better control over data location and security, but limited scalability" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 12,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "12. What is a hybrid cloud?",
+        options: [
+          { key: "A", text: "A cloud owned by several organizations with shared concerns" },
+          { key: "B", text: "A combination of public and private clouds bridged to enable data and application portability" },
+          { key: "C", text: "A cloud used by a single organization only" },
+          { key: "D", text: "A cloud that runs without any virtualization" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 13,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "13. What happens in cloud bursting when using a hybrid cloud?",
+        options: [
+          { key: "A", text: "All private data is permanently moved to the public cloud" },
+          { key: "B", text: "Unused resources are deleted automatically" },
+          { key: "C", text: "When a spike in demand exceeds local resource limits, the public cloud manages the bursts" },
+          { key: "D", text: "Servers are shut down when demand drops" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 14,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "14. Which cloud model is provisioned for use by multiple organizations with shared concerns such as mission and compliance?",
+        options: [
+          { key: "A", text: "Community cloud" },
+          { key: "B", text: "Hybrid cloud" },
+          { key: "C", text: "Private cloud" },
+          { key: "D", text: "Public cloud" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 15,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "15. Which statement about IaaS is correct?",
+        options: [
+          { key: "A", text: "It requires the client to buy physical servers" },
+          { key: "B", text: "It is the base layer of the cloud stack and the foundation for both PaaS and SaaS" },
+          { key: "C", text: "It is the top layer built on SaaS" },
+          { key: "D", text: "It provides only prebuilt applications" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 16,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "16. What level of control do application developers have in PaaS?",
+        options: [
+          { key: "A", text: "Control of the operating system and servers only" },
+          { key: "B", text: "Full control of deployed applications and hosting settings, but not the underlying infrastructure" },
+          { key: "C", text: "No control over their own applications" },
+          { key: "D", text: "Full control of the networks, servers, and storage" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 17,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "17. Which statement describes SaaS?",
+        options: [
+          { key: "A", text: "Applications are prebuilt and cloud-native, and the CSP handles patching and updates" },
+          { key: "B", text: "Users install and patch the software themselves" },
+          { key: "C", text: "Applications are heavily customized by each user" },
+          { key: "D", text: "Applications can only be accessed from one location" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 18,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "18. What is vendor lock-in?",
+        options: [
+          { key: "A", text: "Locking data in a vault with encryption keys" },
+          { key: "B", text: "Sharing resources between tenants" },
+          { key: "C", text: "The ability to switch providers at no cost" },
+          { key: "D", text: "Reliance on proprietary technology that restricts organizations from adopting alternatives" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 19,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "19. What is an Availability Zone in AWS?",
+        options: [
+          { key: "A", text: "A software tool for load balancing" },
+          { key: "B", text: "A geographic area that contains many Regions" },
+          { key: "C", text: "A cluster of one or more discrete data centers" },
+          { key: "D", text: "A single server in a data center" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 20,
+        lecture: 1,
+        lectureName: "Lec 1: What is Cloud Computing?",
+        question: "20. What does CAPEX refer to?",
+        options: [
+          { key: "A", text: "Costs associated with fixed assets, including their purchase, maintenance, and improvement" },
+          { key: "B", text: "The complete cost of a service throughout its lifetime" },
+          { key: "C", text: "Costs of the day-to-day running of a business" },
+          { key: "D", text: "The obstacles for a new company to enter a market" }
+        ],
+        answer: "A"
+      },
+
+      // Lecture 2: Questions 21–40
+      {
+        id: 21,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "21. What is encryption?",
+        options: [
+          { key: "A", text: "Blocking all traffic at the network perimeter" },
+          { key: "B", text: "Converting original data into a coded, unreadable form using mathematical algorithms and keys" },
+          { key: "C", text: "Storing sensitive data in a separate vault" },
+          { key: "D", text: "Granting users the minimum permissions needed" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 22,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "22. What common misconception do many companies have about adopting a public cloud?",
+        options: [
+          { key: "A", text: "That the CSP becomes responsible for the security of their applications and data" },
+          { key: "B", text: "That encryption is only needed on-premise" },
+          { key: "C", text: "That cloud services need an Internet connection" },
+          { key: "D", text: "That CSPs do not provide any security tools" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 23,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "23. What are the three components of the CIA triad?",
+        options: [
+          { key: "A", text: "Control, Identity, and Access" },
+          { key: "B", text: "Certification, Inspection, and Audit" },
+          { key: "C", text: "Confidentiality, Integrity, and Availability" },
+          { key: "D", text: "Cryptography, Isolation, and Authentication" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 24,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "24. How does symmetric encryption work?",
+        options: [
+          { key: "A", text: "No key is needed to decrypt the data" },
+          { key: "B", text: "A single secret key is used to both encrypt and decrypt the data" },
+          { key: "C", text: "Two mathematically related keys are used" },
+          { key: "D", text: "A public key encrypts and a private key signs" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 25,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "25. How does Bob send a message to Alice using asymmetric encryption?",
+        options: [
+          { key: "A", text: "He encrypts it with Alice's private key" },
+          { key: "B", text: "He encrypts it with a shared secret key" },
+          { key: "C", text: "He encrypts it with his own private key" },
+          { key: "D", text: "He encrypts it with Alice's public key, and Alice decrypts it with her private key" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 26,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "26. What is a digital signature used for?",
+        options: [
+          { key: "A", text: "To hide the message from all readers" },
+          { key: "B", text: "To replace the receiver's private key" },
+          { key: "C", text: "To compress the message before sending" },
+          { key: "D", text: "To validate the authenticity and integrity of a message such as an email" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 27,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "27. Which statement about VPN tunnels is correct?",
+        options: [
+          { key: "A", text: "They store sensitive data tokens in a vault" },
+          { key: "B", text: "They are built over IPSec and securely extend an on-premise environment into the cloud" },
+          { key: "C", text: "They are built over HTTPS and replace firewalls" },
+          { key: "D", text: "They are used only inside a single subnet" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 28,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "28. How does tokenization protect sensitive data in the public cloud?",
+        options: [
+          { key: "A", text: "Random tokens replace the data and have no mathematical relationship to the original value" },
+          { key: "B", text: "The data is signed with the sender's private key" },
+          { key: "C", text: "The data is converted into ciphertext by a shared key" },
+          { key: "D", text: "The data is copied to every subnet in the VPC" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 29,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "29. What is a Virtual Private Cloud (VPC)?",
+        options: [
+          { key: "A", text: "A physical data center owned by the customer" },
+          { key: "B", text: "A type of encryption algorithm" },
+          { key: "C", text: "A logically isolated virtual network provisioned in the public cloud" },
+          { key: "D", text: "A firewall that blocks DDoS attacks" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 30,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "30. What does a Web Application Firewall (WAF) do?",
+        options: [
+          { key: "A", text: "Provides remote access to administrators" },
+          { key: "B", text: "Screens web application traffic and prevents exploits such as SQL injection" },
+          { key: "C", text: "Manages user permissions through groups" },
+          { key: "D", text: "Encrypts data stored in the token vault" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 31,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "31. How does an IPS differ from an IDS?",
+        options: [
+          { key: "A", text: "An IPS can also block traffic, while an IDS only sends alerts and logs suspicious traffic" },
+          { key: "B", text: "They are identical in function" },
+          { key: "C", text: "An IPS only works on stored data" },
+          { key: "D", text: "An IDS can block traffic, while an IPS only logs it" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 32,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "32. Which security control manages traffic to and from individual virtual machines?",
+        options: [
+          { key: "A", text: "Subnets" },
+          { key: "B", text: "Hash values" },
+          { key: "C", text: "Security Groups" },
+          { key: "D", text: "Network ACLs" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 33,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "33. In the two-tier web application example, which traffic does the web tier security group permit?",
+        options: [
+          { key: "A", text: "Only MySQL traffic on port 3306" },
+          { key: "B", text: "Only HTTP (port 80) or HTTPS (port 443) traffic from any source" },
+          { key: "C", text: "All inbound traffic from any source" },
+          { key: "D", text: "Only SSH traffic from administrators" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 34,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "34. Which is an example of the “Something You Are” authentication factor?",
+        options: [
+          { key: "A", text: "A password" },
+          { key: "B", text: "An ID card" },
+          { key: "C", text: "A PIN code" },
+          { key: "D", text: "A fingerprint or retina scan" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 35,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "35. In IAM, what does authorization do?",
+        options: [
+          { key: "A", text: "Encrypts the user's credentials" },
+          { key: "B", text: "Requires users to prove who they are" },
+          { key: "C", text: "Determines what resources authenticated users have access to" },
+          { key: "D", text: "Logs every user action" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 36,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "36. What does Single Sign-on (SSO) allow?",
+        options: [
+          { key: "A", text: "Administrators to block all logins" },
+          { key: "B", text: "Users to share their passwords with others" },
+          { key: "C", text: "A user to hold two different accounts" },
+          { key: "D", text: "Users to access multiple applications through one authentication process" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 37,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "37. How do IAM roles differ from users in AWS?",
+        options: [
+          { key: "A", text: "Roles can only be used by groups" },
+          { key: "B", text: "Roles hold long-standing credentials like users" },
+          { key: "C", text: "Roles are for a temporary purpose, whereas users are assigned long-standing credentials" },
+          { key: "D", text: "Roles are permanent accounts for people only" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 38,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "38. What does the Principle of Least Privilege state?",
+        options: [
+          { key: "A", text: "A user must be granted only the minimum permissions necessary to do their job" },
+          { key: "B", text: "Two people must perform every sensitive task" },
+          { key: "C", text: "Every user receives full administrator access" },
+          { key: "D", text: "All users are untrusted and continuously validated" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 39,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "39. What does the Zero Trust model do?",
+        options: [
+          { key: "A", text: "Treats internal and external users as untrusted and continuously validates access" },
+          { key: "B", text: "Trusts all internal users by default" },
+          { key: "C", text: "Allows access with a single password" },
+          { key: "D", text: "Removes the need for authentication" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 40,
+        lecture: 2,
+        lectureName: "Lec 2: Introduction to Cloud Security",
+        question: "40. How does penetration testing extend vulnerability scanning?",
+        options: [
+          { key: "A", text: "It only discovers weaknesses without attacking" },
+          { key: "B", text: "It replaces the need for any security audits" },
+          { key: "C", text: "It only checks the strength of user passwords" },
+          { key: "D", text: "It attacks target systems as an outside attacker would and documents which attacks succeeded" }
+        ],
+        answer: "D"
+      },
+
+      // Lecture 3: Questions 41–60
+      {
+        id: 41,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "41. How is cloud hosting described in the evolution of hosting?",
+        options: [
+          { key: "A", text: "One physical machine shared by hundreds of businesses" },
+          { key: "B", text: "One physical machine virtualized into sub-machines" },
+          { key: "C", text: "One physical machine dedicated to a single business" },
+          { key: "D", text: "Multiple physical machines that act as one system, abstracted into multiple cloud services" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 42,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "42. Which description fits a Cloud Service Provider (CSP)?",
+        options: [
+          { key: "A", text: "A company offering services without any monitoring" },
+          { key: "B", text: "A company that provides only one cloud service" },
+          { key: "C", text: "A company providing many cloud services accessible via a single unified API with metered billing" },
+          { key: "D", text: "A company that sells only physical servers" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 43,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "43. What is a company called that offers multiple cloud services under a single UI but meets few CSP requirements?",
+        options: [
+          { key: "A", text: "A Cloud Service Provider, such as AWS" },
+          { key: "B", text: "A dedicated server host" },
+          { key: "C", text: "A Cloud Platform, such as Twilio, HashiCorp, or Databricks" },
+          { key: "D", text: "A Virtual Private Server" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 44,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "44. What are the four core types of cloud services for IaaS?",
+        options: [
+          { key: "A", text: "Storage, Email, Analytics, and Domains" },
+          { key: "B", text: "Compute, Networking, Storage, and Databases" },
+          { key: "C", text: "Networking, Backup, Testing, and Auditing" },
+          { key: "D", text: "Compute, Billing, Support, and Training" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 45,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "45. Which services is a global services?",
+        options: [
+          { key: "A", text: "Amazon S3, CloudFront, Route53, and IAM" },
+          { key: "B", text: "SQS, SES, and RDS" },
+          { key: "C", text: "Only Amazon EC2" },
+          { key: "D", text: "EC2, VPC, and CloudShell" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 46,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "46. How are datacenters within an AWS Region arranged?",
+        options: [
+          { key: "A", text: "They are far apart, so latency is high" },
+          { key: "B", text: "They are in the same building to cut costs" },
+          { key: "C", text: "They are in different buildings but close enough to provide low latency (under 10 ms)" },
+          { key: "D", text: "They are in different countries to improve speed" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 47,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "47. How does an Elastic Load Balancer help provide high availability?",
+        options: [
+          { key: "A", text: "It upgrades every server to a larger size" },
+          { key: "B", text: "It evenly distributes traffic and routes it only to datacenters with healthy servers" },
+          { key: "C", text: "It stores backups of all data" },
+          { key: "D", text: "It encrypts all traffic between AZs" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 48,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "48. Which action describes horizontal scaling (scaling out)?",
+        options: [
+          { key: "A", text: "Reducing the server's memory" },
+          { key: "B", text: "Adding more servers of the same size" },
+          { key: "C", text: "Upgrading to a bigger server" },
+          { key: "D", text: "Removing all servers" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 49,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "49. What does an AWS Auto Scaling Group (ASG) do?",
+        options: [
+          { key: "A", text: "Creates ARNs for resources" },
+          { key: "B", text: "Encrypts access keys" },
+          { key: "C", text: "Manually upgrades servers to bigger sizes" },
+          { key: "D", text: "Automatically adds or removes servers based on scaling rules you define from metrics" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 50,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "50. What is a business continuity plan (BCP)?",
+        options: [
+          { key: "A", text: "A script that creates cloud infrastructure" },
+          { key: "B", text: "A document that outlines how a business continues operating during an unplanned disruption" },
+          { key: "C", text: "A report of monthly cloud billing" },
+          { key: "D", text: "A list of all AWS Regions" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 51,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "51. What does the Recovery Point Objective (RPO) represent?",
+        options: [
+          { key: "A", text: "The number of servers used for backup" },
+          { key: "B", text: "The cost of restoring services" },
+          { key: "C", text: "The maximum acceptable amount of data loss after an incident, expressed as time" },
+          { key: "D", text: "The maximum downtime a business can tolerate" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 52,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "52. What does the Recovery Time Objective (RTO) represent?",
+        options: [
+          { key: "A", text: "The maximum acceptable amount of data loss" },
+          { key: "B", text: "The time between two backups" },
+          { key: "C", text: "The time needed to launch a new Region" },
+          { key: "D", text: "The maximum amount of downtime a business can tolerate without a significant financial loss" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 53,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "53. What happens in the Backup & Restore disaster recovery option?",
+        options: [
+          { key: "A", text: "A scaled-up copy of the infrastructure runs in another region" },
+          { key: "B", text: "Data is replicated to another region with minimal services" },
+          { key: "C", text: "Traffic moves automatically with zero downtime" },
+          { key: "D", text: "You back up your data and restore it to new infrastructure after the event" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 54,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "54. What is an API, and what is its most common type?",
+        options: [
+          { key: "A", text: "Software that lets two applications talk to each other, most commonly via HTTP/S requests" },
+          { key: "B", text: "Hardware that connects two data centers" },
+          { key: "C", text: "A tool for writing Infrastructure as Code" },
+          { key: "D", text: "A browser-based shell" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 55,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "55. Which are ways to interact with the AWS API without sending HTTP requests directly?",
+        options: [
+          { key: "A", text: "ARNs, Regions, and access keys" },
+          { key: "B", text: "Only the AWS Management Console" },
+          { key: "C", text: "AWS Management Console, AWS SDK, and AWS CLI" },
+          { key: "D", text: "AWS CloudTrail, S3, and EC2" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 56,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "56. What does the AWS Management Console let users do?",
+        options: [
+          { key: "A", text: "Point and click to manually launch and configure AWS resources with limited programming knowledge" },
+          { key: "B", text: "Run scripts without using any browser" },
+          { key: "C", text: "Access resources only through terminal commands" },
+          { key: "D", text: "Write Infrastructure as Code only in Python" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 57,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "57. What do Amazon Resource Names (ARNs) do?",
+        options: [
+          { key: "A", text: "They encrypt traffic between AZs" },
+          { key: "B", text: "They uniquely identify AWS resources across all of AWS" },
+          { key: "C", text: "They store a user's secret access key" },
+          { key: "D", text: "They list the available Regions" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 58,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "58. What is true about the AWS CLI?",
+        options: [
+          { key: "A", text: "It is a web-based point-and-click interface" },
+          { key: "B", text: "It is available only on Windows" },
+          { key: "C", text: "It is a plugin for VS Code" },
+          { key: "D", text: "It is a Python executable program named aws, and Python is required to install it" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 59,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "59. Which statement about CloudFormation and CDK is correct?",
+        options: [
+          { key: "A", text: "CloudFormation is a declarative IaC tool, while CDK is an imperative IaC tool" },
+          { key: "B", text: "CDK is declarative, while CloudFormation is imperative" },
+          { key: "C", text: "Both are imperative tools written only in YAML" },
+          { key: "D", text: "Neither can automate infrastructure" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 60,
+        lecture: 3,
+        lectureName: "Lec 3: Cloud Services",
+        question: "60. Which statement about AWS CloudShell is correct?",
+        options: [
+          { key: "A", text: "It is a free, browser-based shell built into the AWS Management Console" },
+          { key: "B", text: "It is a paid desktop application" },
+          { key: "C", text: "It cannot run the AWS CLI" },
+          { key: "D", text: "It provides unlimited free storage per Region" }
+        ],
+        answer: "A"
+      },
+
+      // Lecture 4: Questions 61–80
+      {
+        id: 61,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "61. What is the Shared Responsibility Model?",
+        options: [
+          { key: "A", text: "A formal contract that defines where AWS responsibilities end and the customer's begin" },
+          { key: "B", text: "A list of AWS Regions and zones" },
+          { key: "C", text: "A tool for monitoring monthly billing" },
+          { key: "D", text: "A pricing plan for AWS services" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 62,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "62. What is AWS responsible for under the Shared Responsibility Model?",
+        options: [
+          { key: "A", text: "Deciding which users can access customer data" },
+          { key: "B", text: "Protecting the “Cloud” itself, including the global infrastructure" },
+          { key: "C", text: "Protecting the assets the customer creates in the account" },
+          { key: "D", text: "Writing secure code for customer applications" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 63,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "63. Why can customers not manage the physical security of AWS data centers?",
+        options: [
+          { key: "A", text: "Because the locks are managed by the customer's administrators" },
+          { key: "B", text: "Because customers only use mobile devices" },
+          { key: "C", text: "Because data centers are located in the customer's office" },
+          { key: "D", text: "They have no physical access, so they cannot enter, install cameras, or manage locks" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 64,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "64. What is the customer responsible for protecting “IN the Cloud”?",
+        options: [
+          { key: "A", text: "The cameras inside AWS buildings" },
+          { key: "B", text: "The physical locks of the data centers" },
+          { key: "C", text: "The global infrastructure of AWS" },
+          { key: "D", text: "The assets they create and the configurations they implement within their AWS account" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 65,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "65. Which two things must the customer define under Identity and Access Management?",
+        options: [
+          { key: "A", text: "Neither, because AWS defines both" },
+          { key: "B", text: "Authentication (who has an account) and authorization (what they can do)" },
+          { key: "C", text: "Only authentication, since AWS handles authorization" },
+          { key: "D", text: "Only authorization, since AWS handles authentication" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 66,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "66. Who must enable encryption for S3 buckets and RDS instances?",
+        options: [
+          { key: "A", text: "No one, because it is always on" },
+          { key: "B", text: "AWS, after scanning the customer's data" },
+          { key: "C", text: "AWS, which enables it for every customer" },
+          { key: "D", text: "The customer, who must choose to enable it and decide which data requires protection" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 67,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "67. For AWS Key Management Service (KMS), what is the customer responsible for?",
+        options: [
+          { key: "A", text: "Providing the KMS service itself" },
+          { key: "B", text: "Only deleting old keys" },
+          { key: "C", text: "Deciding which keys to use, who can use a key, and who can create or delete keys" },
+          { key: "D", text: "Maintaining the physical hardware" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 68,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "68. What is the customer responsible for configuring when building a VPC?",
+        options: [
+          { key: "A", text: "Only the physical cabling of the data center" },
+          { key: "B", text: "Subnets, route tables, internet gateways, security groups, and network ACLs" },
+          { key: "C", text: "Only the global infrastructure" },
+          { key: "D", text: "Only the AWS Regions" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 69,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "69. Who is responsible for VPN or Direct Connect configurations?",
+        options: [
+          { key: "A", text: "AWS, as part of physical security" },
+          { key: "B", text: "The customer, as part of network and firewall configuration" },
+          { key: "C", text: "No one, since they are automatic" },
+          { key: "D", text: "AWS, as part of the global infrastructure" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 70,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "70. What is a “patch”?",
+        options: [
+          { key: "A", text: "A security update that closes vulnerabilities" },
+          { key: "B", text: "A key for encrypting S3 buckets" },
+          { key: "C", text: "A type of virtual firewall" },
+          { key: "D", text: "A new AWS Region" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 71,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "71. Why is the customer responsible for patching the Guest OS on EC2 instances?",
+        options: [
+          { key: "A", text: "Because EC2 has no operating system" },
+          { key: "B", text: "Because AWS refuses to patch Linux" },
+          { key: "C", text: "They have administrative access, and AWS cannot access the instance to update its software" },
+          { key: "D", text: "Because AWS only patches applications" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 72,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "72. If application code has flaws such as SQL Injection or XSS, who must fix them?",
+        options: [
+          { key: "A", text: "The customer, who must write secure code and remediate application-level flaws" },
+          { key: "B", text: "AWS, as part of protecting the cloud" },
+          { key: "C", text: "AWS, through automatic patching of all code" },
+          { key: "D", text: "No one, since these flaws cannot be fixed" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 73,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "73. What is an identity in AWS?",
+        options: [
+          { key: "A", text: "A type of encryption key" },
+          { key: "B", text: "A physical badge for entering a data center" },
+          { key: "C", text: "Any entity that can prove who it is to AWS to make an API request" },
+          { key: "D", text: "A subnet inside a VPC" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 74,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "74. According to AWS, who is responsible for identity?",
+        options: [
+          { key: "A", text: "AWS and the Regions" },
+          { key: "B", text: "AWS, because it creates all accounts" },
+          { key: "C", text: "AWS, because it owns the data centers" },
+          { key: "D", text: "The customer, because “Identity is entirely yours”" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 75,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "75. Which of the following is listed among AWS identities?",
+        options: [
+          { key: "A", text: "AWS data center locks" },
+          { key: "B", text: "The global infrastructure" },
+          { key: "C", text: "Public S3 buckets" },
+          { key: "D", text: "Applications using Access Keys" }
+        ],
+        answer: "D"
+      },
+      {
+        id: 76,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "76. Which of the following does AWS not know about your business?",
+        options: [
+          { key: "A", text: "Which Regions it operates in" },
+          { key: "B", text: "Where its own data centers are located" },
+          { key: "C", text: "Who your employees are and who should be an Admin or Read-Only" },
+          { key: "D", text: "How its global infrastructure works" }
+        ],
+        answer: "C"
+      },
+      {
+        id: 77,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "77. In an over-permissive policy, who provides the “Effect” and who provides the “Action” and “Resource”?",
+        options: [
+          { key: "A", text: "AWS provides the “Effect,” but the customer provides the “Action” and “Resource”" },
+          { key: "B", text: "AWS provides all three parts" },
+          { key: "C", text: "AWS provides the “Action” and “Resource”" },
+          { key: "D", text: "The customer provides only the “Effect”" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 78,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "78. What is recommend using instead of permanent Access Keys?",
+        options: [
+          { key: "A", text: "IAM Roles and Temporary Credentials (STS)" },
+          { key: "B", text: "Hardcoded keys in code" },
+          { key: "C", text: "Public S3 buckets" },
+          { key: "D", text: "A shared root user password" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 79,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "79. How do leaked Access Keys commonly happen?",
+        options: [
+          { key: "A", text: "AWS rotates the keys every hour" },
+          { key: "B", text: "Hardcoding keys in code and uploading the code to public repositories like GitHub" },
+          { key: "C", text: "AWS publishes the keys by mistake" },
+          { key: "D", text: "The keys are encrypted in KMS" }
+        ],
+        answer: "B"
+      },
+      {
+        id: 80,
+        lecture: 4,
+        lectureName: "Lec 4: The Shared Responsibility Model",
+        question: "80. What caused real-world breaches involving public S3 buckets?",
+        options: [
+          { key: "A", text: "A hack of the S3 service itself" },
+          { key: "B", text: "A failure of AWS physical security" },
+          { key: "C", text: "A customer configuration failure; the S3 service itself was not hacked" },
+          { key: "D", text: "A flaw in the AWS global infrastructure" }
+        ],
+        answer: "C"
+      }
+    ];
+
+    // State
+    let quizQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = {}; // { questionId: { selected: "A", isCorrect: true/false } }
+    let config = {
+      displayMode: "one",
+      orderMode: "sequential",
+      lectureScope: "all"
+    };
+
+    // DOM Elements
+    const settingsView = document.getElementById("settingsView");
+    const quizView = document.getElementById("quizView");
+    const resultsView = document.getElementById("resultsView");
+    const questionsContainer = document.getElementById("questionsContainer");
+    const singleNavControls = document.getElementById("singleNavControls");
+    const allNavControls = document.getElementById("allNavControls");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const counterBadge = document.getElementById("counterBadge");
+    const scoreBadge = document.getElementById("scoreBadge");
+    const wrongBadge = document.getElementById("wrongBadge");
+    const progressFill = document.getElementById("progressFill");
+    const themeToggle = document.getElementById("themeToggle");
+
+    // Init Theme
+    let isDark = true;
+    themeToggle.addEventListener("click", () => {
+      isDark = !isDark;
+      if (isDark) {
+        document.documentElement.removeAttribute("data-theme");
+        themeToggle.textContent = "🌙 مريح";
+      } else {
+        document.documentElement.setAttribute("data-theme", "light");
+        themeToggle.textContent = "☀️ فاتح";
+      }
+    });
+
+    // Start Quiz Button
+    document.getElementById("startQuizBtn").addEventListener("click", () => {
+      config.displayMode = document.querySelector('input[name="displayMode"]:checked').value;
+      config.orderMode = document.querySelector('input[name="orderMode"]:checked').value;
+      config.lectureScope = document.querySelector('input[name="lectureScope"]:checked').value;
+
+      initQuiz(false);
+    });
+
+    function initQuiz(errorsOnly = false, errorList = []) {
+      userAnswers = {};
+      currentIndex = 0;
+
+      if (errorsOnly) {
+        quizQuestions = [...errorList];
+      } else {
+        // Filter scope
+        let baseList = [...RAW_QUESTIONS];
+        if (config.lectureScope === "lec1") {
+          baseList = baseList.filter(q => q.lecture === 1);
+        } else if (config.lectureScope === "lec2") {
+          baseList = baseList.filter(q => q.lecture === 2);
+        } else if (config.lectureScope === "lec3") {
+          baseList = baseList.filter(q => q.lecture === 3);
+        } else if (config.lectureScope === "lec4") {
+          baseList = baseList.filter(q => q.lecture === 4);
+        }
+
+        // Order
+        if (config.orderMode === "random") {
+          quizQuestions = shuffleArray([...baseList]);
+        } else {
+          quizQuestions = [...baseList];
+        }
+      }
+
+      showView(quizView);
+      renderQuizMode();
+      updateHeaderStats();
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function showView(view) {
+      [settingsView, quizView, resultsView].forEach(v => v.classList.remove("active"));
+      view.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderQuizMode() {
+      questionsContainer.innerHTML = "";
+
+      if (config.displayMode === "one") {
+        singleNavControls.style.display = "flex";
+        allNavControls.style.display = "none";
+        renderSingleQuestion(currentIndex);
+      } else {
+        singleNavControls.style.display = "none";
+        allNavControls.style.display = "flex";
+        renderAllQuestions();
+      }
+    }
+
+    // Render 1 question
+    function renderSingleQuestion(index) {
+      questionsContainer.innerHTML = "";
+      const q = quizQuestions[index];
+      const card = createQuestionCard(q, index + 1, quizQuestions.length);
+      questionsContainer.appendChild(card);
+
+      counterBadge.textContent = `سؤال ${index + 1} من ${quizQuestions.length}`;
+      prevBtn.disabled = (index === 0);
+      
+      if (index === quizQuestions.length - 1) {
+        nextBtn.textContent = "إنهاء وعرض النتيجة 🏁";
+        nextBtn.className = "btn btn-success";
+      } else {
+        nextBtn.textContent = "التالي ⬅️";
+        nextBtn.className = "btn btn-primary";
+      }
+    }
+
+    // Render All Questions
+    function renderAllQuestions() {
+      questionsContainer.innerHTML = "";
+      quizQuestions.forEach((q, idx) => {
+        const card = createQuestionCard(q, idx + 1, quizQuestions.length);
+        questionsContainer.appendChild(card);
+      });
+      counterBadge.textContent = `الكل: ${quizQuestions.length} سؤال`;
+      updateAllProgressText();
+    }
+
+    function updateAllProgressText() {
+      const answeredCount = Object.keys(userAnswers).length;
+      document.getElementById("allProgressText").textContent = `تمت إجابة ${answeredCount} من ${quizQuestions.length}`;
+    }
+
+    // Create Card DOM
+    function createQuestionCard(q, displayNum, totalCount) {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.id = `qCard_${q.id}`;
+
+      // Answered status class
+      const answered = userAnswers[q.id];
+      if (answered) {
+        card.classList.add(answered.isCorrect ? "answered-correct" : "answered-wrong");
+      }
+
+      card.innerHTML = `
+        <div class="q-header">
+          <span class="q-num">سؤال ${displayNum} / ${totalCount}</span>
+          <span class="q-lecture">${q.lectureName}</span>
+        </div>
+        <div class="q-text">${escapeHtml(q.question)}</div>
+        <div class="options-list" id="opts_${q.id}">
+          ${q.options.map(opt => `
+            <button class="option-btn" data-qid="${q.id}" data-key="${opt.key}">
+              <span class="opt-letter">${opt.key}</span>
+              <span class="opt-text">${escapeHtml(opt.text)}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="feedback-box" id="feedback_${q.id}"></div>
+      `;
+
+      // Attach Listeners
+      const buttons = card.querySelectorAll(".option-btn");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => handleSelectOption(q, btn.dataset.key, card));
+      });
+
+      // If already answered, restore visual state
+      if (answered) {
+        applyFeedbackUI(card, q, answered.selected);
+      }
+
+      return card;
+    }
+
+    function handleSelectOption(q, selectedKey, card) {
+      // If already answered, ignore
+      if (userAnswers[q.id]) return;
+
+      const isCorrect = (selectedKey === q.answer);
+      userAnswers[q.id] = { selected: selectedKey, isCorrect: isCorrect };
+
+      applyFeedbackUI(card, q, selectedKey);
+      updateHeaderStats();
+
+      if (config.displayMode === "all") {
+        updateAllProgressText();
+      }
+    }
+
+    function applyFeedbackUI(card, q, selectedKey) {
+      const isCorrect = (selectedKey === q.answer);
+      const buttons = card.querySelectorAll(".option-btn");
+      const feedbackBox = card.querySelector(`#feedback_${q.id}`);
+
+      buttons.forEach(b => {
+        b.classList.add("disabled");
+        const k = b.dataset.key;
+        if (k === q.answer) {
+          b.classList.add("correct-choice");
+        } else if (k === selectedKey && !isCorrect) {
+          b.classList.add("wrong-choice");
+        }
+      });
+
+      card.classList.remove("answered-correct", "answered-wrong");
+      card.classList.add(isCorrect ? "answered-correct" : "answered-wrong");
+
+      // Feedback Text
+      if (isCorrect) {
+        feedbackBox.className = "feedback-box correct";
+        feedbackBox.innerHTML = `<span>✓ إجابة صحيحة وممتازة! 🎉</span>`;
+      } else {
+        const correctOpt = q.options.find(o => o.key === q.answer);
+        feedbackBox.className = "feedback-box wrong";
+        feedbackBox.innerHTML = `<span>✕ إجابة غير صحيحة! الإجابة الصحيحة هي: (${q.answer}) ${escapeHtml(correctOpt.text)}</span>`;
+      }
+    }
+
+    function updateHeaderStats() {
+      let correct = 0;
+      let wrong = 0;
+      Object.values(userAnswers).forEach(ans => {
+        if (ans.isCorrect) correct++;
+        else wrong++;
+      });
+
+      scoreBadge.textContent = `✅ صح: ${correct}`;
+      wrongBadge.textContent = `❌ خطأ: ${wrong}`;
+
+      const answeredTotal = Object.keys(userAnswers).length;
+      const pct = (answeredTotal / quizQuestions.length) * 100;
+      progressFill.style.width = `${pct}%`;
+    }
+
+    // Nav Events
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderSingleQuestion(currentIndex);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < quizQuestions.length - 1) {
+        currentIndex++;
+        renderSingleQuestion(currentIndex);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        showResults();
+      }
+    });
+
+    document.getElementById("finishAllBtn").addEventListener("click", () => {
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < quizQuestions.length) {
+        const unanswered = quizQuestions.length - answeredCount;
+        if (!confirm(`لقد أجبت على ${answeredCount} من ${quizQuestions.length} سؤالاً. هل تريد إنهاء الاختبار ورؤية نتيجتك وحساب ${unanswered} أسئلة متبقية كإجابات خاطئة؟`)) {
+          return;
+        }
+      }
+      showResults();
+    });
+
+    document.getElementById("quitQuizBtn").addEventListener("click", () => {
+      if (confirm("هل ترغب في العودة إلى شاشة البداية وتغيير الإعدادات؟")) {
+        showView(settingsView);
+      }
+    });
+
+    // Results Function
+    function showResults() {
+      let correctCount = 0;
+      let wrongCount = 0;
+      const wrongQuestions = [];
+
+      quizQuestions.forEach(q => {
+        const ans = userAnswers[q.id];
+        if (ans && ans.isCorrect) {
+          correctCount++;
+        } else {
+          wrongCount++;
+          wrongQuestions.push(q);
+        }
+      });
+
+      const total = quizQuestions.length;
+      const percent = Math.round((correctCount / total) * 100);
+
+      document.getElementById("finalScoreVal").textContent = `${correctCount}/${total}`;
+      document.getElementById("finalPercentVal").textContent = `${percent}%`;
+      document.getElementById("statTotal").textContent = total;
+      document.getElementById("statCorrect").textContent = correctCount;
+      document.getElementById("statWrong").textContent = wrongCount;
+      document.getElementById("wrongCountTab").textContent = wrongCount;
+
+      // Circle conic gradient
+      const scoreCircle = document.getElementById("scoreCircle");
+      scoreCircle.style.background = `radial-gradient(circle, var(--card-bg) 60%, transparent 61%), conic-gradient(var(--success) ${percent}%, var(--option-bg) ${percent}% 100%)`;
+
+      // Evaluation Message
+      const resultBadge = document.getElementById("resultBadge");
+      const resultMsg = document.getElementById("resultMsg");
+
+      if (percent >= 90) {
+        resultBadge.textContent = "🏆 ممتاز جداً - خبير سحابي!";
+        resultBadge.style.background = "rgba(34, 197, 94, 0.2)";
+        resultBadge.style.color = "var(--success)";
+        resultMsg.textContent = "أداء استثنائي! إتقان تام لمفاهيم السحابة وأمن النظم الافتراضية.";
+      } else if (percent >= 75) {
+        resultBadge.textContent = "🌟 جيد جداً!";
+        resultBadge.style.background = "rgba(56, 189, 248, 0.2)";
+        resultBadge.style.color = "var(--primary)";
+        resultMsg.textContent = "أداء رائع، راجع فقط بعض الأسئلة التي تعثرت بها لتضمن الدرجة الكاملة.";
+      } else if (percent >= 50) {
+        resultBadge.textContent = "👍 اجتياز مقبول";
+        resultBadge.style.background = "rgba(234, 179, 8, 0.2)";
+        resultBadge.style.color = "#eab308";
+        resultMsg.textContent = "مستوى جيد! اضغط على زر مراجعة الأخطاء فقط لتثبيت النقاط غير الواضحة.";
+      } else {
+        resultBadge.textContent = "⚠️ تحتاج إلى مراجعة إضافية";
+        resultBadge.style.background = "rgba(239, 68, 68, 0.2)";
+        resultBadge.style.color = "var(--danger)";
+        resultMsg.textContent = "لا تقلق! استعرض الأخطاء بالأسفل لمعرفة الإجابات الصحيحة وشرحها ببساطة.";
+      }
+
+      // Retry Errors Button State
+      const retryErrorsBtn = document.getElementById("retryErrorsBtn");
+      if (wrongCount === 0) {
+        retryErrorsBtn.style.display = "none";
+      } else {
+        retryErrorsBtn.style.display = "inline-flex";
+        retryErrorsBtn.onclick = () => {
+          initQuiz(true, wrongQuestions);
+        };
+      }
+
+      // Render Review
+      renderReview(true); // default: show wrong only
+      showView(resultsView);
+    }
+
+    // Filter Review Tabs
+    const filterWrongOnly = document.getElementById("filterWrongOnly");
+    const filterAll = document.getElementById("filterAll");
+
+    filterWrongOnly.addEventListener("click", () => {
+      filterWrongOnly.classList.add("active");
+      filterAll.classList.remove("active");
+      renderReview(true);
+    });
+
+    filterAll.addEventListener("click", () => {
+      filterAll.classList.add("active");
+      filterWrongOnly.classList.remove("active");
+      renderReview(false);
+    });
+
+    function renderReview(wrongOnly = true) {
+      const container = document.getElementById("reviewContainer");
+      container.innerHTML = "";
+
+      let items = quizQuestions;
+      if (wrongOnly) {
+        items = quizQuestions.filter(q => {
+          const ans = userAnswers[q.id];
+          return !ans || !ans.isCorrect;
+        });
+      }
+
+      if (items.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 25px; color: var(--success); font-weight: 600;">🎉 ما شاء الله! لا توجد أي أخطاء في هذا القسم!</div>`;
+        return;
+      }
+
+      items.forEach((q, idx) => {
+        const ans = userAnswers[q.id];
+        const isCorrect = ans && ans.isCorrect;
+        const correctOpt = q.options.find(o => o.key === q.answer);
+        const userOpt = ans ? q.options.find(o => o.key === ans.selected) : null;
+
+        const div = document.createElement("div");
+        div.className = `review-item ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <span style="font-weight:bold; color:var(--primary); font-size:0.9rem;">#${q.id}</span>
+            <span style="font-size:0.8rem; color:var(--text-muted);">${q.lectureName}</span>
+          </div>
+          <div class="review-q">${escapeHtml(q.question)}</div>
+          ${!isCorrect && userOpt ? `
+            <div class="review-ans user-choice-wrong">
+              ❌ <strong>إجابتك:</strong> (${userOpt.key}) ${escapeHtml(userOpt.text)}
+            </div>
+          ` : (!ans ? `
+            <div class="review-ans user-choice-wrong">
+              ❌ <strong>لم تتم الإجابة عليه</strong>
+            </div>
+          ` : `
+            <div class="review-ans correct-choice-box">
+              ✅ <strong>أجبت إجابة صحيحة:</strong> (${correctOpt.key}) ${escapeHtml(correctOpt.text)}
+            </div>
+          `)}
+          ${!isCorrect ? `
+            <div class="review-ans correct-choice-box">
+              ✅ <strong>الإجابة الصحيحة:</strong> (${correctOpt.key}) ${escapeHtml(correctOpt.text)}
+            </div>
+          ` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById("restartAllBtn").addEventListener("click", () => {
+      initQuiz(false);
+    });
+
+    document.getElementById("backToHomeBtn").addEventListener("click", () => {
+      showView(settingsView);
+    });
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+  </script>
+</body>
+</html>
